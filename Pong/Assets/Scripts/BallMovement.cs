@@ -44,6 +44,12 @@ void OnCollisionEnter2D(Collision2D collision)
         {
             direction.x = -direction.x;
         }
+    //Reverse vertical direction for paddle collisions
+    else if (collision.gameObject.name == "Left Paddle" || collision.gameObject.name == "Right Paddle")
+        {
+            direction.x = -direction.x;
+            speed += 1; //Add little speed boost to the ball when it its a paddle
+        }
   //Debug.Log("Hit: " + collision.gameObject.name); //Sanity check for debugging bounce issue
 }
 
@@ -52,5 +58,4 @@ void FixedUpdate()
     {
         ball.velocity = direction * speed;
     }
-
 }
