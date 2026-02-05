@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BallMovement : MonoBehaviour
+public class BallMovement : MonoBehaviour, ICollidable
 {
 
 //Private Fields
@@ -33,6 +33,16 @@ void Start()
 
 //Collision Logic
 void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnHit(collision);
+        ICollidable collidable = collision.gameObject.GetComponent<ICollidable>();
+        if (collidable != null)
+        {
+            collidable.OnHit(collision);
+        }
+    }
+
+public void OnHit(Collision2D collision)
 { 
   // Reverse horizontal direction for top and bottom walls
   if (collision.gameObject.name == "Top Wall" || collision.gameObject.name == "Bottom Wall")

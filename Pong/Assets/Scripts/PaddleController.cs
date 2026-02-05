@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PaddleController : MonoBehaviour
+public abstract class PaddleController : MonoBehaviour
 {
     //Protected variables for paddle speed and rigidbody
     protected float speed = 8.0f;
@@ -23,7 +23,5 @@ public class PaddleController : MonoBehaviour
     }
 
     //Get input function
-    protected virtual float GetMovementInput() {
-        return 0f;
-    }
+    protected abstract float GetMovementInput();
 }
