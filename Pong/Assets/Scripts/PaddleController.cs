@@ -15,7 +15,7 @@ public abstract class PaddleController : NetworkBehaviour
     //Update function to handle paddle movement
     void FixedUpdate() {
 
-        if (IsOwner)
+        //if (IsOwner)
         {
         //Set movement inputs and speed
         float input = GetMovementInput();
