@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Pong.slnx"
+    "dotnet.defaultSolution": "Pong.slnx",
+    "git.ignoreLimitWarning": true
 }

@@ -5,6 +5,7 @@ public abstract class PaddleController : NetworkBehaviour
 {
     //Protected variables for paddle speed and rigidbody
     protected float speed = 8.0f;
+    private NetworkVariable<float> syncedYPosition = new NetworkVariable<float>(0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     protected Rigidbody2D paddle;
 
     //Initialize the rb component for the paddle
@@ -13,16 +14,22 @@ public abstract class PaddleController : NetworkBehaviour
     }
 
     //Update function to handle paddle movement
-    void FixedUpdate() {
+    void Update() {
 
-        //if (IsOwner)
+        if (IsOwner)
         {
-        //Set movement inputs and speed
+        //Set movement input
         float input = GetMovementInput();
-        float currentSpeed = speed;
+        float newY = transform.position.y + (input * speed * Time.deltaTime);
 
-        //Set paddle velocity based on speed * user input
-        paddle.velocity = new Vector2(0, input * currentSpeed);
+        // Update local position
+        paddle.MovePosition(new Vector2(transform.position.x, newY));
+
+        //Update networkvariable so other clients can see
+        syncedYPosition.Value = newY;
+        } else
+        {
+            paddle.MovePosition(new Vector2(transform.position.x, syncedYPosition.Value));
         }
     }
 
