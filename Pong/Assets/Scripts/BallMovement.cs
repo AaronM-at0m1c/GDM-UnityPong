@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class BallMovement : MonoBehaviour, ICollidable
+public class BallMovement : NetworkBehaviour, ICollidable
 {
 
 //Private Fields
@@ -27,9 +28,16 @@ void Start()
 {
     //Create ball object and set starting velocity
     ball = GetComponent<Rigidbody2D>();
-    direction = new Vector2(1, 1);
-    ball.velocity = direction * speed;
+    //direction = new Vector2(1, 1);
+    ball.velocity = Vector2.zero;
 }
+
+public void Launch(Vector2 serveDirection)
+    {
+        speed = 3f;
+        direction = new Vector2(serveDirection.x, 1f).normalized;
+        ball.velocity = direction * speed;
+    }
 
 //Collision Logic
 void OnCollisionEnter2D(Collision2D collision)
@@ -55,10 +63,10 @@ public void OnHit(Collision2D collision)
             direction.x = -direction.x;
         }
     //Reverse vertical direction for paddle collisions
-    else if (collision.gameObject.name == "Left Paddle" || collision.gameObject.name == "Right Paddle")
+    else if (collision.gameObject.name == "LPaddle" || collision.gameObject.name == "RPaddle")
         {
             direction.x = -direction.x;
-            speed += 1; //Add little speed boost to the ball when it its a paddle
+            //speed += 1; //Add little speed boost to the ball when it its a paddle
         }
   //Debug.Log("Hit: " + collision.gameObject.name); //Sanity check for debugging bounce issue
 }

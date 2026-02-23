@@ -22,12 +22,12 @@ public abstract class PaddleController : NetworkBehaviour
     {
         if (OwnerClientId == 0)
         {
-            transform.position = new Vector3(-8f, 0f, 0f);
+            transform.position = new Vector3(-6f, 0f, 0f);
             gameObject.name = "LPaddle";
             Debug.Log("Host paddle spawned - use W/S");
         } else
         {
-            transform.position = new Vector3(8f, 0f, 0f);
+            transform.position = new Vector3(15f, 0f, 0f);
             gameObject.name = "RPaddle";
             Debug.Log("Client paddle spawned - use up/down");
         }
