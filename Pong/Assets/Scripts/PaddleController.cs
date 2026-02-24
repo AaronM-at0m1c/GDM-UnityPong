@@ -15,7 +15,7 @@ public abstract class PaddleController : NetworkBehaviour
     //Initialize the rb component for the paddle
     void Start() {
         paddle = GetComponent<Rigidbody2D>();
-        paddle.bodyType = RigidbodyType2D.Kinematic;
+        //paddle.bodyType = RigidbodyType2D.Kinematic;
     }
 
     public override void OnNetworkSpawn()

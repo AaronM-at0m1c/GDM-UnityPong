@@ -18,11 +18,11 @@ public class ScoreZone : NetworkBehaviour
 
             if (side == Side.Left)
             {
-                gm.RightPlayerScored();
+                gm.LeftPlayerScored();
             }
             else
             {
-                gm.LeftPlayerScored();
+                gm.RightPlayerScored();
             }
         }
     }
