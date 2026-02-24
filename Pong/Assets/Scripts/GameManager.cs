@@ -21,6 +21,7 @@ public class GameManager : NetworkBehaviour
     private NetworkVariable<bool> gameOver = new NetworkVariable<bool>(false);
     private const int pointsToWin = 5;
 
+// Initialize game setup and listen for "start game" button to be pressed
     public override void OnNetworkSpawn()
     {
         leftScore.OnValueChanged += (oldVal, newVal) => UpdateScoreUI();
@@ -38,6 +39,7 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    // When start game button is pressed, start the game
     public void StartGame()
     {
         if (!IsServer) return;
@@ -52,6 +54,7 @@ public class GameManager : NetworkBehaviour
         ResetBall(Vector2.right);
     }
 
+    // Function to update right player score and check if they have enough points to win
     public void RightPlayerScored()
     {
         if (!IsServer || gameOver.Value) return;
@@ -63,6 +66,7 @@ public class GameManager : NetworkBehaviour
             ResetBall(Vector2.left);
     }
 
+        // Function to update left player score and check if they have enough points to win
     public void LeftPlayerScored()
     {
         if (!IsServer || gameOver.Value) return;
@@ -82,6 +86,7 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    // Assign ownership of paddles
     private IEnumerator AssignOwnershipAfterSpawn()
     {
         yield return new WaitForSeconds(1f);
@@ -124,12 +129,14 @@ public class GameManager : NetworkBehaviour
                 
     }
 
+    // Function to update the score UI on the canvas
     private void UpdateScoreUI()
     {
         leftScoreText.text = leftScore.Value.ToString();
         rightScoreText.text = rightScore.Value.ToString();
     }
 
+    // Function to update the win UI on the canvas    
     private void UpdateWinUI()
     {
         if (gameOver.Value)
@@ -147,6 +154,7 @@ public class GameManager : NetworkBehaviour
 
     }
 
+    // Reset ball function to be called after a player scores
     private void ResetBall(Vector2 serveDirection)
     {
         if (ball == null) return;
@@ -156,6 +164,7 @@ public class GameManager : NetworkBehaviour
             bm.Launch(serveDirection);
     }
 
+    // Check if player score = 5
     private void CheckWinCondition()
     {
         if (leftScore.Value >= pointsToWin || rightScore.Value >= pointsToWin)

@@ -7,6 +7,7 @@ public class ScoreZone : NetworkBehaviour
 
     [SerializeField] private Side side;
 
+    // Use OnTrigger to call Score functions in game manager when hitting a ScoreZone
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!IsServer) return;
